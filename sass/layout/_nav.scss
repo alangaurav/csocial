@@ -1,0 +1,105 @@
+nav {
+    &.navbar {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        height: 10rem;
+        margin: 0;
+        padding: 1rem 2rem;
+        background-color: transparent;
+        width: 100%;
+
+
+        & .navbar {
+            &-logo {
+                & img {
+                    height: 6rem;
+                    width: 6rem;
+                }
+            }
+
+            &-links {
+                & a {
+                    text-decoration: none;
+                    font-size: 2rem;
+                    font-weight: 600;
+                    color: $color-gray-dark;
+                    transition: all 1s ease;
+                    padding: 0 .5rem;
+
+                    &:hover {
+                        color: $color-primary;
+                    }
+                }
+            }
+
+            &-profile {
+                cursor: pointer;
+                input.navbar-profile-image[type='checkbox']{
+                    content: url(../assets/img1.png);
+                    appearance: none;
+                    display: inline-block;
+                    width: 6rem;
+                    height: 6rem;
+                    margin-right: 4rem;
+
+                    &:checked {
+                        & + .navbar-profile-list {
+                            visibility: visible;
+                            display: block;
+                        }
+                    }
+                }
+
+                &-list{
+                    list-style-type: none;
+                    visibility: none;
+                    display: none;
+                    li {
+                        appearance: none;
+                        font-size: 1.5rem;
+                        text-transform: capitalize;
+                        font-weight: 500;
+                        color: $color-gray-dark;
+                        transition: all 1s ease;
+                        &:hover {
+                            color: $color-primary
+                        }
+                    }
+                }
+            }
+
+            &-search {
+                margin: auto;
+                &-form {
+                    & input {
+                        height: 6rem;
+                        width: 80rem;
+                        border: none;
+                        background-color: $color-gray-light;
+                        border-radius: 5rem;
+                        padding: 1rem 2rem;
+                        font-size: 1.5rem;
+                        color: $color-gray-dark;
+                        transition: all .5s ease;
+
+                        &::placeholder {
+                            font-size: inherit;
+                            font-weight: 200;
+                            transition: all .5s ease;
+                        }
+
+                        &:focus {
+                            border: solid 1px $color-gray-light;
+
+                            &::placeholder {
+                                transform: translateX(-2rem);
+                                opacity: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

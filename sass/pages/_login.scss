@@ -1,0 +1,40 @@
+.container {
+    &--login{
+        display: flex;
+        height: 100vh;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        & .heading {
+            flex-basis: 100%;
+            align-self: center;
+        }
+
+        & .form-container {
+            align-self: flex-start;
+        }
+    }
+}
+
+.heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &-title {
+        font-size: 7rem;
+        padding: .8rem;
+        color: $color-gray-dark;
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+    &-subtitle {
+        font-size: 5rem;
+        padding-top: .4rem;
+        padding-bottom: 1.5rem;
+        color: $color-gray-dark;
+    }
+}

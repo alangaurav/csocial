@@ -1,0 +1,93 @@
+.form {
+    &-container {
+        min-height: 25rem;
+        background-color: $color-gray-light;
+        box-shadow: $shadow-light-xy;
+        border-radius: 5rem;
+        padding: 3rem 5rem;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-title {
+        align-self: center;
+        font-size: 3.5rem;
+        font-weight: 500;
+        margin: 1.5rem 0;
+    }
+
+    &-group {
+        margin: 1.5rem 0;
+        padding: 1rem;
+        position: relative;
+
+        input {
+            outline: none;
+            position: relative;
+            background: none;
+            height: 4rem;
+            border: none;
+            border-bottom: solid 2px $color-gray-dark;
+            font-size: 2.5rem;
+
+            &::placeholder {
+                opacity: 1;
+                font-size: 2rem;
+                transition: all .5s ease;
+            }
+
+            &:focus,
+            &:active {
+                border-bottom: solid 2px $color-primary;
+                &::placeholder {
+                    opacity: 0;
+                    transform: translateX(-1rem);
+                }
+
+                & ~label {
+                    transform: translateX(1rem);
+                    opacity: 1;
+                    color: $color-primary;
+                }
+            }
+
+            &:not(:focus) {
+                &::placeholder {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+
+                & ~label {
+                    opacity: 0;
+                    transform: translateX(-1rem);
+                }
+            }
+
+            &:not(:placeholder-shown) {
+                & ~label {
+                    transform: translateX(1rem);
+                    opacity: 1;
+                    color: $color-primary;
+                }
+            }
+        }
+
+        & label {
+            position: absolute;
+            top: -1rem;
+            left: 0;
+            font-size: 1.4rem;
+            transition: all 1s ease;
+            opacity: 1;
+        }
+
+        &--button {
+            margin: 3rem 0 2rem 0;
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+    }
+}

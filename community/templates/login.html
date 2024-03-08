@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login | Corporate Community</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="container--login">
+        <div class="heading">
+            <div class="heading-title">Corporate Community</div>
+            <div class="heading-subtitle">Login</div>
+        </div>
+        {% block 'form-container' %}
+        {% endblock %}
+    </div>
+</body>
+</html>

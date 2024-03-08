@@ -1,0 +1,20 @@
+.settings {
+    &-container {
+        padding: 2rem 8rem;
+        display: flex;
+        flex-wrap: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    &-heading {
+        font-size: 8rem;
+        padding: 2rem 0;
+        color: $color-gray-dark;
+    }
+
+    &-form {
+        padding: 2rem 0;
+    }
+}

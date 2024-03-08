@@ -1,0 +1,103 @@
+.btn-fixed-bottom {
+    font-size: 2.8rem;
+    font-weight: 300;
+}
+
+.post {
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(35rem, 100%), 1fr));
+        gap: 3rem;
+        padding: 3rem 20rem;
+        justify-items: center;
+    }
+
+    &-container {
+        border-radius: 2rem;
+        padding: 3rem 2rem;
+        background-color: $color-gray-light;
+        color: $color-gray-dark;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-shadow: $shadow-light-xy;
+        width: 35rem;
+
+        &-title {
+            font-size: 2.5rem;
+            font-weight: 500;
+            padding-bottom: .8rem;
+            padding-top: 1.2rem;
+            overflow-wrap: break-word;
+        }
+
+        &-author {
+            font-size: 3rem;
+            font-weight: 600;
+            padding: .5rem 1rem;
+            display: flex;
+            align-content: center;
+
+            &-image {
+                width: 2.5rem;
+                height: 2.5rem;
+                margin-right: 1rem;
+                cursor: pointer;
+            }
+        }
+
+        &-content {
+            font-size: 2.2rem;
+            font-weight: 300;
+            padding-bottom: 1.2rem;
+            padding-top: .5rem;
+            overflow-wrap: break-word;
+        }
+
+        &-tags {
+            padding: .5rem 1rem;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            a {
+                font-size: 1.4rem;
+                color: $color-blue-light;
+                cursor: pointer;
+                padding: 0 .1rem;
+                &:visited {
+                    color: $color-blue;
+                }
+            }
+        }
+        
+        &-comments {
+            padding-top: 2rem;
+            padding-bottom: 1rem;
+
+            ul.post-comments {
+                padding: .5rem 1rem;
+                & li {
+                    padding: .5rem 0;
+                    display: flex;
+                    flex-direction: column;
+                    background-color: $color-gray;
+                    border-radius: 1rem;
+                    color: $color-gray-dark;
+
+                    .post-comments-author {
+                        color: $color-blue;
+                        font-size: 1.6rem;
+                        font-weight: 500;
+                        padding: .2rem .5rem;
+                    }
+
+                    .post-comments-content {
+                        font-size: 1.4rem;
+                        padding: .2rem .5rem;
+                        font-weight: 300;
+                    }
+                }
+            }
+        }
+    }
+}

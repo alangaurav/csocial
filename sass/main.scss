@@ -1,0 +1,25 @@
+//This is the main sass file that is used for compiling
+//all the dependencies
+
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+@import "base/animations";
+@import "base/base";
+@import "base/typography";
+@import "base/utilities";
+
+@import "components/forms";
+@import "components/button";
+@import "components/dropdown";
+@import "components/modal";
+
+//@import "layout/grid";
+@import "layout/nav";
+
+@import "pages/login";
+@import "pages/posts";
+@import "pages/profile";
+@import "pages/settings";
+
