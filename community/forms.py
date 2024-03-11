@@ -1,11 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .models import Post, Profile, Company
+from .models import *
 from django.contrib.auth.models import User
+from django.core.validators import EmailValidator
 
 class UserAndProfileCreationForm(UserCreationForm):
-    email = forms.EmailField()
-
+    domains = Company.objects.values_list('domain')
+    email = forms.EmailField(validators=[EmailValidator(allowlist=domains)])
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
@@ -36,8 +37,16 @@ class LoginForm(forms.Form):
         fields = ['user']
 
 class PostForm(forms.ModelForm):
-    image = forms.ImageField(required=False)
-    tags = forms.CharField(max_length=500, required=False)
+    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Title', 'class': 'form-control'}), required=True)
+    description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Description', 'class': 'form-control'}), required=True)
+    category = forms.ChoiceField(choices=Post.categories, widget=forms.Select(attrs={'class': 'form-control'}), required=True)
+    image = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Post
-        fields = ['title', 'description', 'tags','image']
+        fields = ['title', 'description', 'category', 'image']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['description']
