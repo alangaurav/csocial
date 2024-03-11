@@ -13,7 +13,7 @@
         <div class="post-container" id="{{ post.id }}">
             <div class="post-container-author">
                 <img src="{{post.author.profile_image}}" alt="" class="post-container-author-image">
-                {{ post.author.user.first_name }} {{ post.author.user.last_name }}
+                <a href="/profile/?profile={{post.author.id}}">{{ post.author.user.first_name }} {{ post.author.user.last_name }}</a>
             </div>
             <div class="post-container-title">{{ post.title }}</div>
             <div class="post-container-content">{{ post.description }}</div>
@@ -22,12 +22,15 @@
             {% endif %}
             <div class="post-container-tags">
                 {% for tag in post.tags.all %}
-                <a>#{{ tag.name }}</a>
+                <a href="/posts/?tag={{ tag.name }}">#{{ tag.name }}</a>
                 {% endfor %}
             </div>
         </div>
         {% endfor %}
     </div>
-
+    <div class="modal" id="modal">
+        <!-- <span class="close-button" onclick="closeModal()">&times;</span> -->
+        <div class="modal-container"></div>
+    </div>
 </div>
 {% endblock %}

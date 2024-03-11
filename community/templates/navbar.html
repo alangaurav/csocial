@@ -1,7 +1,8 @@
 <nav class="navbar">
     <div class="navbar-logo">Logo</div>
     <div class="navbar-search">
-        <form method="post" role="search" class="navbar-search-form">
+        <form method="POST" role="search" class="navbar-search-form" id="searchform">
+            {% csrf_token %}
             <input type="search" name="search" id="search" placeholder="Search" required>
         </form>
     </div>
