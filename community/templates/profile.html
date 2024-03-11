@@ -25,6 +25,9 @@
                 <a href="/posts/?tag={{ tag.name }}">#{{ tag.name }}</a>
                 {% endfor %}
             </div>
+            <div class="post-container-comments--count">
+                {{ post.comments.count }} Comments
+            </div>
         </div>
         {% endfor %}
     </div>
