@@ -36,12 +36,43 @@ $(document).ready(function () {
 
     //Handle individual post click
     $('.post-container').click(function (event) {
-        $('.modal-container').load('/singlepost/?post=' + this.id, function (response, status, xhr) {
+        let postid = this.id
+        $('.modal-container').load('/singlepost/?post=' + postid, function (response, status, xhr) {
             if (status == 'Error')
                 window.replace('/posts/')
             else {
                 $('#modal').show(); // Show the modal once content is loaded
                 $('.modal').css('display', 'flex');
+            }
+
+            $('#comment-form').submit(function(event){
+                event.preventDefault();
+                console.log("New comment posting");
+                console.log(postid)
+                $.ajax({
+                    url: '/newcomment/?post=' + postid,
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }) 
+        });
+    })
+
+    $('#searchform').submit(function(event){
+        $.ajax({
+            url: '/posts/',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
             }
         });
     })
