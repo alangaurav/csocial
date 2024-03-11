@@ -361,7 +361,7 @@ button {
   color: #414242;
 }
 .sidepanel ul li {
-  padding: 1rem 0;
+  padding: 0.8rem 0;
 }
 .sidepanel ul li:first-of-type {
   font-size: 2.8rem;
@@ -370,7 +370,6 @@ button {
 }
 .sidepanel ul li a:hover {
   color: #F06B3F;
-  font-size: 2.8rem;
 }
 
 nav.navbar {
@@ -572,6 +571,7 @@ nav.navbar .navbar-search-form input:focus::placeholder {
   background-color: #CCCCCC;
   border-radius: 1rem;
   color: #414242;
+  margin: 0.5rem 0;
 }
 .post-container-comments ul.post-comments li .post-comments-author {
   color: #2C43B7;
@@ -584,9 +584,20 @@ nav.navbar .navbar-search-form input:focus::placeholder {
   padding: 0.2rem 0.5rem;
   font-weight: 300;
 }
-.post-container-comments form.post-comment-form input[type=text] {
-  width: 80%;
+.post-container-comments--count {
   font-size: 1.4rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  font-weight: 600;
+}
+.post-container-comments form div.form-group {
+  margin: 0;
+}
+.post-container-comments form.post-comment-form input[type=text] {
+  width: 90%;
+  font-size: 1.4rem;
+  margin: 0 1rem;
 }
 .post-container-comments form.post-comment-form input[type=text]::placeholder {
   font-size: 1.4rem;
