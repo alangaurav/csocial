@@ -14,5 +14,6 @@ urlpatterns = [
     path('user-settings/', views.profile_settings, name='settings'),
     path('logout/', views.logout_view, name='logout'),
     path('newpost/', views.newpost, name="new_post"),
-    path('singlepost/', views.singlePost, name='singlepost')
+    path('singlepost/', views.singlePost, name='singlepost'),
+    path('newcomment/', views.newcomment, name='newcomment')
 ]
