@@ -84,6 +84,7 @@
                     background-color: $color-gray;
                     border-radius: 1rem;
                     color: $color-gray-dark;
+                    margin: .5rem 0;
 
                     .post-comments-author {
                         color: $color-blue;
@@ -100,9 +101,22 @@
                 }
             }
 
-            form.post-comment-form input[type="text"] {
-                width: 80%;
+            &--count {
                 font-size: 1.4rem;
+                padding: .5rem 1rem;
+                display: flex;
+                flex-direction: row;
+                font-weight: 600;
+            }
+
+            & form div.form-group {
+                margin: 0;
+            }
+
+            form.post-comment-form input[type="text"] {
+                width: 90%;
+                font-size: 1.4rem;
+                margin: 0 1rem;
                 &::placeholder {
                     font-size: 1.4rem;
                 }
