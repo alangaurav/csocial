@@ -23,20 +23,17 @@ def my_login_view(request):
 def signup_view(request):
     if request.method == 'POST':
         user_profile_form = UserAndProfileCreationForm(request.POST)
-        print("Check if form is valid:")
-        print(user_profile_form.is_valid())
         if user_profile_form.is_valid():
-            print("Form is valid")
             user = user_profile_form.save()  # Save User object
+            company = Company.objects.get(domain=user_profile_form.cleaned_data['email'].split('@')[-1])
             profile = Profile(
                 user=user,
                 #date_of_birth=user_profile_form.cleaned_data['date_of_birth'],
                 #profile_image=user_profile_form.cleaned_data['profile_image'],
                 #description=user_profile_form.cleaned_data['description'],
-                #company = user_profile_form.cleaned_data['company']
+                company = company
             )
             profile.save()
-            #messages.success(request, f'Your account has been created. You can now log in!')
             return redirect('login')  # Replace 'login' with your login view name
     else:
         user_profile_form = UserAndProfileCreationForm()
@@ -45,13 +42,37 @@ def signup_view(request):
 
 @login_required
 def posts_view(request):
-   posts = Post.objects.all().order_by('-created_on')
-   return render(request, 'posts.html', {'posts': posts})
+    if request.method == 'GET':
+        if request.GET:
+            filter = list(request.GET.keys())[0]
+        else:
+            filter = None
+        if filter == 'category':
+            category = request.GET.get('category')
+            posts = Post.objects.filter(category=category).order_by('-created_on')
+        elif filter == 'tag':
+            tagFilter = request.GET.get('tag')
+            posts = Post.objects.filter(tags__name=tagFilter).distinct().order_by('-created_on')
+        elif filter == 'tagcategory':
+            category = request.GET.get('tagcategory')
+            posts = Post.objects.filter(tags__category=category).distinct().order_by('-created_on')
+        else:
+            posts = Post.objects.all().order_by('-created_on')
+    else:
+        filter = request.POST['search']
+        posts = Post.objects.filter(title__icontains=filter) | Post.objects.filter(description__icontains=filter) | Post.objects.filter(author__user__username__icontains=filter) | Post.objects.filter(comments__description__icontains=filter) | Post.objects.filter(tags__name__icontains=filter)
+        posts = posts.distinct()
+    
+    return render(request, 'posts.html', {'posts': posts})
 
 @login_required
 def profile_view(request):
-    profile = Profile.objects.get(user=request.user)
-    posts = Post.objects.filter(author=profile)
+    profileid = request.GET.get('profile')
+    if profileid:
+        profile = Profile.objects.get(id=profileid)
+    else:
+        profile = Profile.objects.get(user=request.user)
+    posts = Post.objects.filter(author=profile).order_by('-created_on')
     return render(request, 'profile.html', {'profile': profile, 'posts': posts})
 
 @login_required
@@ -80,30 +101,31 @@ def newpost(request):
     if request.method == 'GET':
         return render(request, 'new_post.html')
     elif request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        print(form.errors)
-        if form.is_valid():
+        postform = PostForm(request.POST, request.FILES)
+        if postform.is_valid():
             profile = Profile.objects.get(user=request.user)
             post = Post(
                 author= profile,
-                title = form.cleaned_data['title'],
-                description = form.cleaned_data['description'],
-                image = form.cleaned_data['image'],
-                location = profile.company.location
+                title = postform.cleaned_data['title'],
+                description = postform.cleaned_data['description'],
+                image = postform.cleaned_data['image'],
+                location = profile.company.location,
+                category = postform.cleaned_data['category']
             )
             post.save()
-            tagList = form.cleaned_data['tags'].split(' ')
+            tagCategory = request.POST['tag-category']
+            tagList = request.POST['tags'].split(' ')
             for tag in tagList:
-                try:
-                    newtag = Tag.objects.create(name=tag)
-                    newtag.save()
-                    post.tags.add(newtag)
-                except:
-                    post.tags.add(Tag.objects.get(name=tag))
+                 try:
+                     newtag = Tag.objects.create(name=tag, category=tagCategory)
+                     newtag.save()
+                     post.tags.add(newtag)
+                 except:
+                     post.tags.add(Tag.objects.get(name=tag))
             return JsonResponse({'message': 'Post created successfully!'})
         else:
-            return JsonResponse({'errors': form.errors}, status=400)
-    
+            return JsonResponse({'errors': postform.errors}, status=400)
+
     return redirect('posts')
 
 @login_required
@@ -113,7 +135,19 @@ def singlePost(request):
         post = Post.objects.get(id=postid)
         comments = Comment.objects.filter(post=post)
         return render(request, 'singlepost.html', {'post': post, 'comments': comments})
-
+    
+@login_required
+def newcomment(request):
+    comments = request.POST['newcomment']
+    postid = request.GET.get('post')
+    comment = Comment(
+        author = Profile.objects.get(user=request.user),
+        description = comments,
+        post = Post.objects.get(id=postid)
+    )
+    comment.save()
+    return redirect('/singlepost/?post=' + postid)
+    
 def logout_view(request):
     logout(request)
     return redirect('login')
