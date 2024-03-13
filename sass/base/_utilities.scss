@@ -1,0 +1,12 @@
+.helper-text {
+    display: flex;
+    font-size: 1.4rem;
+    flex-direction: column;
+    margin: auto;
+
+    &--password {
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 2rem 0;
+    }
+}
