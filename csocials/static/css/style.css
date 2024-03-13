@@ -1,3 +1,21 @@
+@keyframes fade {
+  0% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+}
 *,
 *::after,
 *::before {
@@ -26,6 +44,18 @@ a {
   color: inherit;
 }
 
+.helper-text {
+  display: flex;
+  font-size: 1.4rem;
+  flex-direction: column;
+  margin: auto;
+}
+.helper-text--password {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 2rem 0;
+}
+
 .form-container {
   min-height: 25rem;
   background-color: #EFEEEE;
@@ -46,6 +76,32 @@ a {
   margin: 1.5rem 0;
   padding: 1rem;
   position: relative;
+}
+.form-group input[type=text].input--login,
+.form-group input[type=email].input--login,
+.form-group input[type=password].input--login {
+  background-color: #CCCCCC;
+  border-radius: 3rem;
+  border: none;
+  height: 5rem;
+  outline: none;
+  font-size: 2.5rem;
+  color: #414242;
+  padding-left: 1.5rem;
+}
+.form-group input[type=text].input--login::placeholder,
+.form-group input[type=email].input--login::placeholder,
+.form-group input[type=password].input--login::placeholder {
+  opacity: 1;
+  font-size: 2rem;
+  transition: all 0.5s ease;
+}
+.form-group input[type=text].input--login:focus, .form-group input[type=text].input--login:active,
+.form-group input[type=email].input--login:focus,
+.form-group input[type=email].input--login:active,
+.form-group input[type=password].input--login:focus,
+.form-group input[type=password].input--login:active {
+  border-bottom: none;
 }
 .form-group input[type=text],
 .form-group input[type=email],
@@ -127,8 +183,9 @@ a {
   margin: 3rem 0 2rem 0;
   padding: 1rem 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
+  margin: auto;
 }
 .form-group select {
   appearance: none;
@@ -167,19 +224,19 @@ a {
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
   margin-right: 16px;
   /*
-    This is a hack to change the button label. 
-    I'm hiding the default label and then 
-    manually applying the width based on 
-    updated icon and label.
-  */
+          This is a hack to change the button label. 
+          I'm hiding the default label and then 
+          manually applying the width based on 
+          updated icon and label.
+        */
   width: 132px;
   color: transparent;
   /*
-    Firefox doesn't support the pseudo ::before 
-    or ::after elements on this input field so 
-    we need to use the @supports rule to enable 
-    default styles fallback for Firefox.
-  */
+          Firefox doesn't support the pseudo ::before 
+          or ::after elements on this input field so 
+          we need to use the @supports rule to enable 
+          default styles fallback for Firefox.
+        */
 }
 @supports (-moz-appearance: none) {
   .form-group input[type=file]::file-selector-button {
@@ -232,6 +289,12 @@ button {
 }
 .btn::after {
   transition: all 0.4s ease;
+}
+.btn--login:hover::after {
+  display: none;
+}
+.btn--login:active::after {
+  display: none;
 }
 .btn:hover {
   color: #F06B3F;
@@ -337,8 +400,34 @@ button {
   align-items: center;
   justify-content: center;
 }
+.modal-container .post-container {
+  max-height: 90vh;
+}
 .modal span.close-button {
   cursor: pointer;
+}
+
+div.popup-container {
+  position: fixed;
+  bottom: 6rem;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  display: none;
+  opacity: 0;
+  animation: 3s ease fade;
+}
+div.popup-container span.popup-container-content {
+  font-size: 2rem;
+  color: #FFFFFF;
+  background-color: #28282B;
+  border-radius: 3rem;
+  margin: auto;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+  padding: 1rem 2.5rem;
+}
+div.popup-container span.popup-container-content-error {
+  color: #C70039;
 }
 
 .sidepanel {
@@ -560,6 +649,7 @@ nav.navbar .navbar-search-form input:focus::placeholder {
 .post-container-comments {
   padding-top: 2rem;
   padding-bottom: 1rem;
+  overflow-y: auto;
 }
 .post-container-comments ul.post-comments {
   padding: 0.5rem 1rem;
@@ -630,6 +720,10 @@ nav.navbar .navbar-search-form input:focus::placeholder {
   padding: 3.5rem 0;
   font-weight: 500;
   font-size: 4rem;
+}
+.profile-description {
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .settings-container {
