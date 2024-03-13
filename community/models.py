@@ -27,7 +27,7 @@ class Tag(models.Model):
         ('restaurant', 'restaurant'),
         ('accomodation', 'accomodation'),
         ('advice', 'advice'),
-        ('resource', 'resources')
+        ('resources', 'resources')
     ]
     category = models.CharField(max_length=15, choices=categories)
 
