@@ -74,6 +74,7 @@
         &-comments {
             padding-top: 2rem;
             padding-bottom: 1rem;
+            overflow-y: auto;
 
             ul.post-comments {
                 padding: .5rem 1rem;
