@@ -11,20 +11,15 @@ class UserAndProfileCreationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-class ProfileUpdateForm(forms.ModelForm):
+class ProfileUpdateForm(forms.Form):
     profile_image = forms.ImageField(required=False)
-    #description = forms.CharField(widget=forms.Textarea, required=False)
+    description = forms.CharField(widget=forms.Textarea, required=False)
+    first_name = forms.CharField(max_length=20, required=False)
+    last_name = forms.CharField(max_length=20, required=False)
     #company = forms.ModelChoiceField(queryset=Company.objects.all(), required=False)
     class Meta:
         model = Profile
-        fields = ['profile_image']
-
-class UserUpdateForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=20)
-    last_name = forms.CharField(max_length=20)
-    class Meta:
-        model = User
-        fields =['first_name', 'last_name']
+        fields = ['user__first_name', 'user__last_name', 'profile_image', 'description']
 
 class CompanyUpdateForm(forms.ModelForm):
     class Meta:
@@ -34,7 +29,7 @@ class CompanyUpdateForm(forms.ModelForm):
 class LoginForm(forms.Form):
     class Meta:
         model = Profile
-        fields = ['user']
+        fields = ['user__email', 'user__password']
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Title', 'class': 'form-control'}), required=True)
