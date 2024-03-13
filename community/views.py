@@ -14,9 +14,9 @@ def my_login_view(request):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('posts')
+            return JsonResponse({'message': 'Valid Credentials', 'invalid': 'False'})
         else:
-            return render(request, 'login_form.html', {'invalid': True, 'error_message': 'Invalid Credentials'})
+            return JsonResponse({'message': 'Invalid Credentials', 'invalid': 'True'})
     else:
         return render(request, 'login_form.html')
 
@@ -24,21 +24,25 @@ def signup_view(request):
     if request.method == 'POST':
         user_profile_form = UserAndProfileCreationForm(request.POST)
         if user_profile_form.is_valid():
-            user = user_profile_form.save()  # Save User object
-            company = Company.objects.get(domain=user_profile_form.cleaned_data['email'].split('@')[-1])
-            profile = Profile(
-                user=user,
-                #date_of_birth=user_profile_form.cleaned_data['date_of_birth'],
-                #profile_image=user_profile_form.cleaned_data['profile_image'],
-                #description=user_profile_form.cleaned_data['description'],
-                company = company
-            )
-            profile.save()
-            return redirect('login')  # Replace 'login' with your login view name
+            checkEmail = User.objects.get(email=user_profile_form.cleaned_data['email'])
+            if checkEmail is not None:
+                return JsonResponse({'message': 'Email already in use!', 'invalid': 'True'})
+            else:
+                user = user_profile_form.save()  # Save User object
+                company = Company.objects.get(domain=user_profile_form.cleaned_data['email'].split('@')[-1])
+                profile = Profile(
+                    user=user,
+                    #date_of_birth=user_profile_form.cleaned_data['date_of_birth'],
+                    #profile_image=user_profile_form.cleaned_data['profile_image'],
+                    #description=user_profile_form.cleaned_data['description'],
+                    company = company
+                )
+                profile.save()
+                return JsonResponse({'message': 'Valid Credentials', 'invalid': 'False'})
+        else:
+            return JsonResponse({'message': user_profile_form.errors.as_text(), 'invalid': 'True'})
     else:
-        user_profile_form = UserAndProfileCreationForm()
-    
-    return render(request, 'signup.html')
+        return render(request, 'signup.html')
 
 @login_required
 def posts_view(request):
@@ -81,20 +85,27 @@ def profile_settings(request):
         profile = Profile.objects.get(user=request.user)
         return render(request, 'user-settings.html', {'profile': profile})
     else:
-        user_update_form = UserUpdateForm(request.POST)
         profile_update_form = ProfileUpdateForm(request.POST)
-        if user_update_form.is_valid() and profile_update_form.is_valid():
-            updateUser = User.objects.get(id=request.user.id)
-            updateUser.first_name = user_update_form.cleaned_data['first_name']
-            updateUser.last_name = user_update_form.cleaned_data['last_name']
-            updateUser.save(update_fields=['first_name', 'last_name'])
-            updateUser.refresh_from_db()
+        if profile_update_form.is_valid():
             updateProfile = Profile.objects.get(user=request.user)
-            updateProfile.profile_image = profile_update_form.cleaned_data['profile_image']
-            updateProfile.user = updateUser
-            updateProfile.save(update_fields=['profile_image', 'user'])
+            updateUser = updateProfile.user
+            if profile_update_form.cleaned_data['first_name']:
+                updateUser.first_name = profile_update_form.cleaned_data['first_name']
+                updateUser.save(update_fields=['first_name'])
+            if profile_update_form.cleaned_data['last_name']:
+                updateUser.last_name = profile_update_form.cleaned_data['last_name']
+                updateUser.save(update_fields=['last_name'])
+            updateUser = updateUser.refresh_from_db()
+            if profile_update_form.cleaned_data['profile_image']:
+                updateProfile.profile_image = profile_update_form.cleaned_data['profile_image']
+                updateProfile.save(update_fields=['profile_image'])
+            if  profile_update_form.cleaned_data['description']:
+                updateProfile.description = profile_update_form.cleaned_data['description']
+                updateProfile.save(update_fields=['description'])
             updateProfile.refresh_from_db()
             return render(request, 'user-settings.html', {'profile': updateProfile})
+        else:
+            return JsonResponse({'message': profile_update_form.errors.as_text})
 
 @login_required
 def newpost(request):
@@ -122,11 +133,9 @@ def newpost(request):
                      post.tags.add(newtag)
                  except:
                      post.tags.add(Tag.objects.get(name=tag))
-            return JsonResponse({'message': 'Post created successfully!'})
+            return JsonResponse({'message': 'Post created successfully!', 'invalid': 'False'})
         else:
-            return JsonResponse({'errors': postform.errors}, status=400)
-
-    return redirect('posts')
+            return JsonResponse({'message': 'Post could not be created!', 'invalid': 'True'})
 
 @login_required
 def singlePost(request):
@@ -146,7 +155,7 @@ def newcomment(request):
         post = Post.objects.get(id=postid)
     )
     comment.save()
-    return redirect('/singlepost/?post=' + postid)
+    return JsonResponse({'message': 'Comments added!', 'invalid': 'False'})
     
 def logout_view(request):
     logout(request)
