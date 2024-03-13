@@ -16,6 +16,19 @@ button {
         transition: all .4s ease;
     }
     
+    &--login {
+        &:hover {
+            &::after {
+                display: none;
+            }
+        }
+        &:active {
+            &::after {
+                display: none;
+            }
+        }
+    }
+
     &:hover {
         color: $color-primary;
         &::after {
