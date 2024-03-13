@@ -15,10 +15,14 @@ $(document).ready(function () {
                         type: 'POST',
                         data: $(this).serialize(),
                         success: function (response) {
-                            window.location.replace('/posts/')
+                            hidepopup();
+                            showpopup(response);
+                            setTimeout(function() {
+                                window.location.replace('/posts/');
+                            }, 3000);
                         },
                         error: function (xhr, status, error) {
-                            console.error(error);
+
                         }
                     });
                 });
@@ -30,7 +34,8 @@ $(document).ready(function () {
     $(window).click(function (event) {
         if (event.target.id == 'modal') {
             $('#modal').hide();
-            $('.modal-container').empty(); // Hide and remove content
+            $('.modal-container').empty();
+            location.reload();
         }
     });
 
@@ -41,28 +46,29 @@ $(document).ready(function () {
             if (status == 'Error')
                 window.replace('/posts/')
             else {
-                $('#modal').show(); // Show the modal once content is loaded
+                $('#modal').show();
                 $('.modal').css('display', 'flex');
             }
 
             $('#comment-form').submit(function(event){
                 event.preventDefault();
-                console.log("New comment posting");
-                console.log(postid)
                 $.ajax({
                     url: '/newcomment/?post=' + postid,
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (response) {
-                        location.reload();
+                        hidepopup();
+                        showpopup(response);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 3000);
                     },
                     error: function (xhr, status, error) {
-                        console.error(error);
                     }
                 });
             }) 
         });
-    })
+    });
 
     $('#searchform').submit(function(event){
         $.ajax({
@@ -70,16 +76,80 @@ $(document).ready(function () {
             type: 'POST',
             data: $(this).serialize(),
             success: function (response) {
+                $('span.popup-content').text("Search Success!");
+                $('.popup-container').show();
+                $('.popup-container').css('display', 'flex');
             },
             error: function (xhr, status, error) {
                 console.error(error);
             }
         });
+    });
+
+    $('#loginform').submit(function(event) {
+        console.log("Login form called");
+        event.preventDefault();
+        $.ajax({
+            url: '/login/',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                $('.popup-container').css('display', 'none');
+                $('.popup-container-content').empty();
+                if(response.invalid == 'True') {
+                    $('span.popup-container-content').text(response.message);
+                    $('.popup-container').show();
+                    $('.popup-container').css('display', 'flex');
+                    $('.popup-container-content').addClass('popup-container-content-error');
+                }
+                else
+                    window.location.replace('/posts/');
+            },
+            error: function (xhr, status, error) {
+               
+            }
+        });
+    });
+
+    $('#signupform').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/signup/',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                hidepopup()
+                if(response.invalid == 'True') {
+                    $('span.popup-container-content').text(response.message);
+                    $('.popup-container').show();
+                    $('.popup-container').css('display', 'flex');
+                    $('.popup-container-content').addClass('popup-container-content-error');
+                }
+                else
+                    window.location.replace('/login/');
+            },
+            error: function (xhr, status, error) {
+               
+            }
+        });
     })
 });
 
-//Handle close modal button
-function closeModal() {
-    $('#modal').hide();
-    $('.modal-container').empty(); // Hide and remove content   
+function showpopup(response) {
+    if(response.invalid == 'True') {
+        $('span.popup-container-content').text(response.message);
+        $('.popup-container').show();
+        $('.popup-container').css('display', 'flex');
+        $('.popup-container-content').addClass('popup-container-content-error');
+    }
+    else if(response.invalid == 'False') {
+        $('span.popup-container-content').text(response.message);
+        $('.popup-container').show();
+        $('.popup-container').css('display', 'flex');
+    }
+}
+
+function hidepopup() {
+    $('.popup-container').css('display', 'none');
+    $('.popup-container-content').empty();
 }
