@@ -1,26 +1,35 @@
 {% extends 'login.html' %}
 {% block 'form-container' %}
-<form method="POST" class="form-container" action="{% url 'signup' %}">
+<form method="POST" class="form-container" action="{% url 'signup' %}" id="signupform">
     {% csrf_token %}
     <div class="form-group">
-        <input type="text" name="username" id="username" placeholder="Username" required>
+        <input type="text" name="username" id="username" placeholder="Username" required class="input--login">
         <label for="username">Username</label>
     </div>
     <div class="form-group">
-        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="email" name="email" id="email" placeholder="Email" required class="input--login">
         <label for="email">Email</label>
     </div>
     <div class="form-group">
-        <input type="password" name="password1" id="password1" placeholder="Password" required>
+        <input type="password" name="password1" id="password1" placeholder="Password" required class="input--login">
         <label for="password1">Password</label>
     </div>
+    <div class="helper-text helper-text--password">
+           Password must 6 characters or more<br>
+           Should not be similar to your username, email or name <br>
+           Cannot be all numeric <br>
+           Not be a commonly used password
+    </div>
     <div class="form-group">
-        <input type="password" name="password2" id="password2" placeholder="Confirm Password" required>
+        <input type="password" name="password2" id="password2" placeholder="Confirm Password" required class="input--login">
         <label for="password2">Confirm Password</label>
     </div>
+    <span class="helper-text">
+        You must have a Corporate Email ID to Sign Up
+    </span>
     <div class="form-group--button">
-        <button type="submit" class="btn" id="signup-btn">Signup</button>
-        <a href="{% url 'login' %}" class="btn" id="login-btn">Login</a>
+        <button type="submit" class="btn btn--login" id="signup-btn">Signup</button>
+        <a href="{% url 'login' %}" class="btn btn--login" id="login-btn">Login</a>
     </div>
 </form>
 {% endblock %}

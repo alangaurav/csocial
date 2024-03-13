@@ -1,18 +1,21 @@
 {% extends 'login.html' %}
 {% block 'form-container' %}
-<form method="POST" class="form-container" action="{% url 'login' %}">
+<form method="POST" class="form-container form--login" action="{% url 'login' %}" id="loginform">
     {% csrf_token %}
     <div class="form-group">
-        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="email" name="email" id="email" placeholder="Email" required class="input--login">
         <label for="email">Email</label>
     </div>
     <div class="form-group">
-        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="password" name="password" id="password" placeholder="Password" required class="input--login">
         <label for="password">Password</label>
     </div>
     <div class="form-group--button">
-        <button type="submit" class="btn" id="login-btn">Login</button>
-        <a href="{% url 'signup' %}" class="btn">Signup</a>
+        <button type="submit" class="btn btn--login" id="login-btn">Login</button>
+        <span class="helper-text">
+            If you do not have an existing account
+        </span>
+        <a href="{% url 'signup' %}" class="btn btn--login">Signup</a>
         <input type="hidden" name="next" value="{{ next }}">
     </div>
 </form>
