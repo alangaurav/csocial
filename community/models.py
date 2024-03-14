@@ -2,6 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
+
+def post_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/post_<id>/<filename>
+    print(instance.author.user.id)
+    print(instance.id)
+    print(filename)
+    return 'user_{0}/posts/{1}'.format(instance.author.user.id, filename)
+
 class Company(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=20)
@@ -10,7 +21,7 @@ class Company(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
-    profile_image = models.ImageField(upload_to='profile_images', blank=True, null=True)
+    profile_image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     company = models.ForeignKey(Company, blank=True, on_delete=models.CASCADE, null=True)
     class Meta:
@@ -34,7 +45,7 @@ class Tag(models.Model):
 class Post(models.Model):
     created_on = models.DateTimeField(default=timezone.now, editable=False)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='post_images', blank=True, null=True)
+    image = models.ImageField(upload_to=post_directory_path, blank=True, null=True)
     description = models.TextField(blank=True)
     title = models.CharField(max_length=100)
     tags = models.ManyToManyField(Tag)
