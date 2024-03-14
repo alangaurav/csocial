@@ -8,9 +8,12 @@
     &-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(35rem, 100%), 1fr));
+        //Experimental CSS feature
+        grid-auto-rows: masonry;
         gap: 3rem;
         padding: 3rem 20rem;
         justify-items: center;
+        align-items: center;
     }
 
     &-container {
