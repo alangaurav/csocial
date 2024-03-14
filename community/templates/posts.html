@@ -7,8 +7,12 @@
         {% for post in posts %}
         <div class="post-container" id="{{ post.id }}">
             <div class="post-container-author">
-                <img src="{{post.author.profile_image}}" alt="" class="post-container-author-image">
-                <a href="/profile/?profile={{post.author.id}}">{{ post.author.user.first_name }} {{ post.author.user.last_name }}</a>
+                {% if post.author.profile_image %}
+                <img src="{{ post.author.profile_image.url }}" alt="" class="post-container-author-image">
+                {% else %}
+                <img src="{% static 'assets/defaultuserimage.png' %}" alt="" class="post-container-author-image">
+                {% endif %}
+                <a href="/profile/?profile={{post.author.id}}">{{ post.author.user.first_name }} {{post.author.user.last_name }}</a>
             </div>
             <div class="post-container-title">{{ post.title }}</div>
             <div class="post-container-content">{{ post.description }}</div>
@@ -31,5 +35,6 @@
         <div class="modal-container"></div>
     </div>
 </div>
-<button class="btn btn-gray btn-fixed-bottom btn-fixed-bottom-animated" data-target="#modal" data-toggle="modal" type="submit" id="open-modal">New Post</button>
+<button class="btn btn-gray btn-fixed-bottom btn-fixed-bottom-animated" data-target="#modal" data-toggle="modal"
+    type="submit" id="open-modal">New Post</button>
 {% endblock %}
