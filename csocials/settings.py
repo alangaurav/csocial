@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'community'
+    'community',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,11 @@ DEBUG = True
 AUTHENTICATION_BACKENDS = [
     'community.backend.EmailBackend',
 ]
+
+FILE_UPLOAD_HANDLERS = [
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
