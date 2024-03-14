@@ -1,4 +1,4 @@
-<form method="POST" class="form-container" id="newpostform" role="form" name="newpostform">
+<form method="POST" class="form-container" id="newpostform" role="form" name="newpostform" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-group">
         <input type="text" name="title" id="title" placeholder="Title" required>
@@ -9,7 +9,7 @@
         <label for="description">Description</label>
     </div>
     <div class="form-group">
-        <input type="file" name="image" id="image">
+        <input type="file" name="image" id="image" placeholder="Image">
         <label for="image">Image</label>
     </div>
     <div class="form-group">

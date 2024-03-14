@@ -3,7 +3,7 @@
 <div class="settings-container">
     <div class="settings-heading">Settings</div>
     <div class="settings-form">
-        <form action="" method="post" class="form-container">
+        <form action="" method="post" class="form-container" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 {% if profile.user.first_name %}
