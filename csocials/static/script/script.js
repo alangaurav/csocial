@@ -10,16 +10,23 @@ $(document).ready(function () {
 
                 $('#newpostform').submit(function (event) {
                     event.preventDefault();
+                    const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+                    const formData = new FormData($(this)[0]);
+                    formData.append('csrfmiddlewaretoken', csrfToken);
                     $.ajax({
                         url: '/newpost/',
                         type: 'POST',
-                        data: $(this).serialize(),
+                        contentType: false,
+                        processData: false,
+                        data: formData,
                         success: function (response) {
                             hidepopup();
                             showpopup(response);
-                            setTimeout(function() {
-                                window.location.replace('/posts/');
-                            }, 3000);
+                            if (response.invalid == 'False') {
+                                setTimeout(function() {
+                                    window.location.replace('/posts/');
+                                }, 3000);
+                            }
                         },
                         error: function (xhr, status, error) {
 
