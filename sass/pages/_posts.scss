@@ -27,6 +27,10 @@
         box-shadow: $shadow-light-xy;
         width: 35rem;
 
+        &--modal {
+            width: 80rem;
+        }
+
         &-title {
             font-size: 2.5rem;
             font-weight: 500;
@@ -40,7 +44,7 @@
             font-weight: 600;
             padding: .5rem 1rem;
             display: flex;
-            align-content: center;
+            align-items: center;
 
             &-image {
                 width: 2.5rem;
@@ -56,6 +60,11 @@
             padding-bottom: 1.2rem;
             padding-top: .5rem;
             overflow-wrap: break-word;
+        }
+
+        &-image{
+            max-width: 100%;
+            height: auto;
         }
 
         &-tags {
