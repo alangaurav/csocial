@@ -32,10 +32,10 @@ class LoginForm(forms.Form):
         fields = ['user__email', 'user__password']
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Title', 'class': 'form-control'}), required=True)
-    description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Description', 'class': 'form-control'}), required=True)
-    category = forms.ChoiceField(choices=Post.categories, widget=forms.Select(attrs={'class': 'form-control'}), required=True)
-    image = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
+    title = forms.CharField(widget=forms.TextInput(), required=True)
+    description = forms.CharField(widget=forms.Textarea(), required=True)
+    category = forms.ChoiceField(choices=Post.categories, widget=forms.Select(), required=True)
+    image = forms.ImageField(required=False, widget=forms.FileInput())
 
     class Meta:
         model = Post
