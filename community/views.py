@@ -85,7 +85,7 @@ def profile_settings(request):
         profile = Profile.objects.get(user=request.user)
         return render(request, 'user-settings.html', {'profile': profile})
     else:
-        profile_update_form = ProfileUpdateForm(request.POST)
+        profile_update_form = ProfileUpdateForm(request.POST, request.FILES)
         if profile_update_form.is_valid():
             updateProfile = Profile.objects.get(user=request.user)
             updateUser = updateProfile.user
@@ -102,6 +102,9 @@ def profile_settings(request):
             if  profile_update_form.cleaned_data['description']:
                 updateProfile.description = profile_update_form.cleaned_data['description']
                 updateProfile.save(update_fields=['description'])
+            if request.FILES['profile_image'] is not None:
+                updateProfile.profile_image = request.FILES['profile_image']
+                updateProfile.save()
             updateProfile.refresh_from_db()
             return render(request, 'user-settings.html', {'profile': updateProfile})
         else:
@@ -114,15 +117,8 @@ def newpost(request):
     elif request.method == 'POST':
         postform = PostForm(request.POST, request.FILES)
         if postform.is_valid():
-            profile = Profile.objects.get(user=request.user)
-            post = Post(
-                author= profile,
-                title = postform.cleaned_data['title'],
-                description = postform.cleaned_data['description'],
-                image = postform.cleaned_data['image'],
-                location = profile.company.location,
-                category = postform.cleaned_data['category']
-            )
+            post = postform.save(commit=False)
+            post.author = Profile.objects.get(user=request.user)
             post.save()
             tagCategory = request.POST['tag-category']
             tagList = request.POST['tags'].split(' ')
