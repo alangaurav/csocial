@@ -1,5 +1,8 @@
+{% load static %} 
 <nav class="navbar">
-    <div class="navbar-logo">Logo</div>
+    <div class="navbar-logo">
+        <img src="{% static 'assets/companylogo.png' %}" alt="">
+    </div>
     <div class="navbar-search">
         <form method="POST" role="search" class="navbar-search-form" id="searchform">
             {% csrf_token %}
