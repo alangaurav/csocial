@@ -15,5 +15,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('newpost/', views.newpost, name="new_post"),
     path('singlepost/', views.singlePost, name='singlepost'),
-    path('newcomment/', views.newcomment, name='newcomment')
+    path('newcomment/', views.newcomment, name='newcomment'),
+    path('delete/', views.delete_post, name='delete_post')
 ]
