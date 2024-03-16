@@ -23,7 +23,7 @@ $(document).ready(function () {
                             hidepopup();
                             showpopup(response);
                             if (response.invalid == 'False') {
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     window.location.replace('/posts/');
                                 }, 3000);
                             }
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 $('.modal').css('display', 'flex');
             }
 
-            $('#comment-form').submit(function(event){
+            $('#comment-form').submit(function (event) {
                 event.preventDefault();
                 $.ajax({
                     url: '/newcomment/?post=' + postid,
@@ -66,18 +66,18 @@ $(document).ready(function () {
                     success: function (response) {
                         hidepopup();
                         showpopup(response);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             window.location.reload();
                         }, 3000);
                     },
                     error: function (xhr, status, error) {
                     }
                 });
-            }) 
+            })
         });
     });
 
-    $('#searchform').submit(function(event){
+    $('#searchform').submit(function (event) {
         $.ajax({
             url: '/posts/',
             type: 'POST',
@@ -93,7 +93,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#loginform').submit(function(event) {
+    $('#loginform').submit(function (event) {
         console.log("Login form called");
         event.preventDefault();
         $.ajax({
@@ -103,7 +103,7 @@ $(document).ready(function () {
             success: function (response) {
                 $('.popup-container').css('display', 'none');
                 $('.popup-container-content').empty();
-                if(response.invalid == 'True') {
+                if (response.invalid == 'True') {
                     $('span.popup-container-content').text(response.message);
                     $('.popup-container').show();
                     $('.popup-container').css('display', 'flex');
@@ -113,12 +113,12 @@ $(document).ready(function () {
                     window.location.replace('/posts/');
             },
             error: function (xhr, status, error) {
-               
+
             }
         });
     });
 
-    $('#signupform').submit(function(event) {
+    $('#signupform').submit(function (event) {
         event.preventDefault();
         $.ajax({
             url: '/signup/',
@@ -126,7 +126,7 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function (response) {
                 hidepopup()
-                if(response.invalid == 'True') {
+                if (response.invalid == 'True') {
                     $('span.popup-container-content').text(response.message);
                     $('.popup-container').show();
                     $('.popup-container').css('display', 'flex');
@@ -136,20 +136,39 @@ $(document).ready(function () {
                     window.location.replace('/login/');
             },
             error: function (xhr, status, error) {
-               
+
             }
         });
-    })
+    });
+
+    $('.deletepost').click(function (event) {
+        console.log(this.id);
+        event.preventDefault();
+        $.ajax({
+            url: '/delete/?post=' + this.id,
+            type: 'GET',
+            success: function (response) {
+                hidepopup();
+                showpopup(response);
+                setTimeout(function () {
+                    window.location.reload();
+                }, 3000);
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+    });
 });
 
 function showpopup(response) {
-    if(response.invalid == 'True') {
+    if (response.invalid == 'True') {
         $('span.popup-container-content').text(response.message);
         $('.popup-container').show();
         $('.popup-container').css('display', 'flex');
         $('.popup-container-content').addClass('popup-container-content-error');
     }
-    else if(response.invalid == 'False') {
+    else if (response.invalid == 'False') {
         $('span.popup-container-content').text(response.message);
         $('.popup-container').show();
         $('.popup-container').css('display', 'flex');
