@@ -7,7 +7,7 @@ def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 def post_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/post_<id>/<filename>
+    # file will be uploaded to MEDIA_ROOT/user_<id>/post/<filename>
     print(instance.author.user.id)
     print(instance.id)
     print(filename)
