@@ -142,6 +142,20 @@ def singlePost(request):
         return render(request, 'singlepost.html', {'post': post, 'comments': comments})
     
 @login_required
+def delete_post(request):
+    if request.method == 'GET':
+        post_id = request.GET.get('post')
+        try:
+            post = Post.objects.get(id=post_id, author__user=request.user)
+            post.delete()
+            print("Post deleted successfully")
+            return JsonResponse({'message': 'Post deleted successfully!', 'invalid': 'False'}) 
+        except Post.DoesNotExist:
+            return JsonResponse({'message': "Post not found or you're not authorized to delete it.", 'invalid': 'True'})
+    else:
+        return JsonResponse("Request method not supported.")
+
+@login_required
 def newcomment(request):
     comments = request.POST['newcomment']
     postid = request.GET.get('post')
