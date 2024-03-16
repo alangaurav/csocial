@@ -23,6 +23,7 @@
                 <img src="{% static 'assets/defaultuserimage.png' %}" alt="" class="post-container-author-image">
                 {% endif %}
                 <a href="/profile/?profile={{post.author.id}}">{{ post.author.user.first_name }} {{ post.author.user.last_name }}</a>
+                <button class="post-container-delete" id="{{ post.id }}">Delete</button>
             </div>
             <div class="post-container-title">{{ post.title }}</div>
             <div class="post-container-content">{{ post.description }}</div>
