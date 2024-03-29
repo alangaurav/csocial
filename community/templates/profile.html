@@ -8,7 +8,7 @@
     <img src="{% static 'assets/defaultuserimage.png' %}" alt="Profile Image" class="profile-image">
     {% endif %}
     <span class="profile-name">{{ profile.user.first_name }} {{ profile.user.last_name }}</span>
-    <span class="profile-link">{{ profile.user.username }}</span>
+    <span class="profile-link"><a href="/profile/?profile={{profile.id}}">{{ profile.user.username }}</a></span>
     <span class="profile-description">{{ profile.description }}</span>
     <div class="profile-title">My Posts</div>
 </div>
@@ -23,7 +23,9 @@
                 <img src="{% static 'assets/defaultuserimage.png' %}" alt="" class="post-container-author-image">
                 {% endif %}
                 <a href="/profile/?profile={{post.author.id}}">{{ post.author.user.first_name }} {{ post.author.user.last_name }}</a>
-                <button class="post-container-delete" id="{{ post.id }}">Delete</button>
+                {% if profile.user == user %}
+                <i class="post-container-delete icon-trash" id="{{ post.id }}"></i>
+                {% endif %}
             </div>
             <div class="post-container-title">{{ post.title }}</div>
             <div class="post-container-content">{{ post.description }}</div>
