@@ -46,9 +46,13 @@ $(document).ready(function () {
         }
     });
 
+    $('.post-container-author, .post-container-tags').on('click', function(event) {
+        event.stopPropagation();
+    })
+
     //Handle individual post click
-    $('.post-container').click(function (event) {
-        let postid = this.id
+    $('.post-container').on('click', function (event) {
+        let postid = this.id;
         $('.modal-container').load('/singlepost/?post=' + postid, function (response, status, xhr) {
             if (status == 'Error')
                 window.replace('/posts/')
@@ -141,7 +145,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.deletepost').click(function (event) {
+    $('.post-container-delete').click(function (event) {
         console.log(this.id);
         event.preventDefault();
         $.ajax({
