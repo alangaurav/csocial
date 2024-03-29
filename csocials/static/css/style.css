@@ -430,6 +430,80 @@ div.popup-container span.popup-container-content-error {
   color: #C70039;
 }
 
+/* Set the scrollbar width to 10px */
+::-webkit-scrollbar {
+  width: 1.5rem;
+}
+
+/* Make the scrollbar track transparent */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: #F06B3F;
+  border-radius: 1rem; /* Rounded corners */
+  background-clip: padding-box;
+  border: 0.5rem solid rgba(0, 0, 0, 0);
+  -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.025);
+}
+
+/* Hide the directional buttons */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Hide the horizontal scrollbar */
+::-webkit-scrollbar-thumb:horizontal {
+  display: none;
+}
+
+.icon-trash {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 12px;
+  border: 2px solid transparent;
+  box-shadow: 0 0 0 2px, inset -2px 0 0, inset 2px 0 0;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+  margin-top: 4px;
+  color: #414242;
+  cursor: pointer;
+}
+.icon-trash:hover {
+  color: #C70039;
+}
+.icon-trash:hover::after, .icon-trash:hover::before {
+  background: #C70039;
+}
+.icon-trash::after, .icon-trash::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  background: #414242;
+}
+.icon-trash::after {
+  border-radius: 3px;
+  width: 16px;
+  height: 2px;
+  top: -4px;
+  left: -5px;
+}
+.icon-trash::before {
+  width: 10px;
+  height: 4px;
+  border: 2px solid;
+  border-bottom: transparent;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  top: -7px;
+  left: -2px;
+}
+
 .sidepanel {
   position: fixed;
   top: 50%;
@@ -446,11 +520,12 @@ div.popup-container span.popup-container-content-error {
 }
 .sidepanel ul {
   text-decoration: none;
-  font-size: 2.2rem;
+  font-size: 2rem;
+  font-weight: 500;
   color: #414242;
 }
 .sidepanel ul li {
-  padding: 0.8rem 0;
+  padding: 0.5rem 0;
 }
 .sidepanel ul li:first-of-type {
   font-size: 2.8rem;
@@ -471,6 +546,9 @@ nav.navbar {
   background-color: transparent;
   width: 100%;
 }
+nav.navbar .navbar-logo {
+  margin-left: 4rem;
+}
 nav.navbar .navbar-logo img {
   height: 6rem;
   width: 6rem;
@@ -490,7 +568,7 @@ nav.navbar .navbar-profile {
   cursor: pointer;
 }
 nav.navbar .navbar-profile input.navbar-profile-image[type=checkbox] {
-  content: url(../assets/img1.png);
+  content: url(../assets/user.png);
   appearance: none;
   display: inline-block;
   width: 6rem;
@@ -576,7 +654,6 @@ nav.navbar .navbar-search-form input:focus::placeholder {
 .heading-subtitle {
   font-size: 5rem;
   padding-top: 0.4rem;
-  padding-bottom: 1.5rem;
   color: #414242;
 }
 
@@ -628,6 +705,10 @@ nav.navbar .navbar-search-form input:focus::placeholder {
   height: 2.5rem;
   margin-right: 1rem;
   cursor: pointer;
+  border-radius: 50%;
+}
+.post-container-delete {
+  margin-left: auto;
 }
 .post-container-content {
   font-size: 2.2rem;
@@ -694,7 +775,7 @@ nav.navbar .navbar-search-form input:focus::placeholder {
   margin: 0;
 }
 .post-container-comments form.post-comment-form input[type=text] {
-  width: 90%;
+  width: 97%;
   font-size: 1.4rem;
   margin: 0 1rem;
 }
@@ -714,6 +795,8 @@ nav.navbar .navbar-search-form input:focus::placeholder {
 .profile-image {
   height: 12rem;
   width: 12rem;
+  border-radius: 50%;
+  margin: auto;
 }
 .profile-name {
   font-size: 5rem;
