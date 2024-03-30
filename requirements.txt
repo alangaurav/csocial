@@ -1,0 +1,5 @@
+pip3 install python-dotenv
+pip3 install django
+pip3 install django-extensions
+pip3 install Pillow
+python3 -m pip install gunicorn
