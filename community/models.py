@@ -40,7 +40,7 @@ class Tag(models.Model):
         ('advice', 'advice'),
         ('resources', 'resources')
     ]
-    category = models.CharField(max_length=15, choices=categories)
+    category = models.CharField(max_length=15, choices=categories, blank=True, null=True)
 
 class Post(models.Model):
     created_on = models.DateTimeField(default=timezone.now, editable=False)
@@ -55,7 +55,7 @@ class Post(models.Model):
         ('recommendation', 'recommendation'),
         ('post', 'post')
     ]
-    category = models.CharField(max_length=15, choices=categories)
+    category = models.CharField(max_length=15, choices=categories, blank=True, null=True)
 
 class Comment(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
