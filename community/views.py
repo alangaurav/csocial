@@ -24,10 +24,11 @@ def signup_view(request):
     if request.method == 'POST':
         user_profile_form = UserAndProfileCreationForm(request.POST)
         if user_profile_form.is_valid():
-            checkEmail = User.objects.get(email=user_profile_form.cleaned_data['email'])
-            if checkEmail is not None:
-                return JsonResponse({'message': 'Email already in use!', 'invalid': 'True'})
-            else:
+            try:
+                checkEmail = User.objects.get(email=user_profile_form.cleaned_data['email'])
+                if checkEmail is not None:
+                    return JsonResponse({'message': 'Email already in use!', 'invalid': 'True'})
+            except:
                 user = user_profile_form.save()  # Save User object
                 company = Company.objects.get(domain=user_profile_form.cleaned_data['email'].split('@')[-1])
                 profile = Profile(
