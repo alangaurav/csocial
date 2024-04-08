@@ -35,7 +35,7 @@ def signup_view(request):
                     user=user,
                     #date_of_birth=user_profile_form.cleaned_data['date_of_birth'],
                     #profile_image=user_profile_form.cleaned_data['profile_image'],
-                    #description=user_profile_form.cleaned_data['description'],
+                    description='About Me',
                     company = company
                 )
                 profile.save()
