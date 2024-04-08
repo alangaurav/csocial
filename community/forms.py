@@ -12,7 +12,7 @@ class UserAndProfileCreationForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
 
 class ProfileUpdateForm(forms.Form):
-    profile_image = forms.ImageField(required=False)
+    profile_image = forms.FileField(required=False)
     description = forms.CharField(widget=forms.Textarea, required=False)
     first_name = forms.CharField(max_length=20, required=False)
     last_name = forms.CharField(max_length=20, required=False)
@@ -32,10 +32,10 @@ class LoginForm(forms.Form):
         fields = ['user__email', 'user__password']
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField(widget=forms.TextInput(), required=True)
-    description = forms.CharField(widget=forms.Textarea(), required=True)
-    category = forms.ChoiceField(choices=Post.categories, widget=forms.Select(), required=True)
-    image = forms.ImageField(required=False, widget=forms.FileInput())
+    title = forms.CharField(required=True)
+    description = forms.CharField(required=True)
+    category = forms.ChoiceField(choices=Post.categories, required=True)
+    image = forms.FileField(required=False)
 
     class Meta:
         model = Post
