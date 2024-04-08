@@ -160,22 +160,9 @@
         border: 1px solid rgba(#000, 0.16);
         box-shadow: 0px 1px 0px rgba(#000, 0.05);
         margin-right: 16px;
-
-        /*
-                This is a hack to change the button label. 
-                I'm hiding the default label and then 
-                manually applying the width based on 
-                updated icon and label.
-              */
-        width: 132px;
+        width: 45px;
         color: transparent;
 
-        /*
-                Firefox doesn't support the pseudo ::before 
-                or ::after elements on this input field so 
-                we need to use the @supports rule to enable 
-                default styles fallback for Firefox.
-              */
         @supports (-moz-appearance: none) {
           color: var(--primary-color);
         }
@@ -189,7 +176,6 @@
         }
       }
 
-      /* Faked label styles and icon */
       &::before {
         position: absolute;
         pointer-events: none;
@@ -201,14 +187,14 @@
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
       }
 
-      &::after {
+      /*&::after {
         position: absolute;
         pointer-events: none;
         top: 16px;
         left: 40px;
         color: var(--primary-color);
         content: "Upload File";
-      }
+      }*/
 
       /* Handle Component Focus */
       &:focus-within::file-selector-button,

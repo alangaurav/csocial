@@ -5,7 +5,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-
+        padding-top: 4rem;
         & .heading {
             flex-basis: 100%;
             align-self: center;
@@ -35,5 +35,6 @@
         font-size: 5rem;
         padding-top: .4rem;
         color: $color-gray-dark;
+        padding-bottom: 2rem;
     }
 }
