@@ -5,12 +5,12 @@
     z-index: 1;
 
     &--right {
-        right: 4rem;
+        right: 2rem;
         text-align: right;
     }
 
     &--left {
-        left: 4rem;
+        left: 2rem;
         text-align: left;
     }
 
@@ -19,6 +19,10 @@
         font-size: 2rem;
         font-weight: 500;
         color: $color-gray-dark;
+        padding: 1.3rem;
+        border-radius: 2rem;
+        background-color: $color-gray-light;
+        box-shadow: $shadow-light-xy;
         
         li {
             padding: .5rem 0;
@@ -30,6 +34,7 @@
             a {
                 &:hover  {
                     color: $color-primary;
+                    font-size: 2.4rem;
                 }
             }
         }
