@@ -63,6 +63,8 @@ capture_output = True
 pidfile = "/var/run/gunicorn/dev.pid"
 # Daemonize the Gunicorn process (detach & enter background)
 daemon = True
+# Add graecful time out to restart workers in case they are killed
+graceful_timeout = 120
 ```
 
 ```
@@ -86,6 +88,8 @@ capture_output = True
 pidfile = "/var/run/gunicorn/prod.pid"
 # Daemonize the Gunicorn process (detach & enter background)
 daemon = True
+# Add graecful time out to restart workers in case they are killed
+graceful_timeout = 120
 ```
 
 Once you create and save your Gunicorn config file you can run gunicorn using the following command from the root project directory:
