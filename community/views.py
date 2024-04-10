@@ -97,13 +97,10 @@ def profile_settings(request):
                 updateUser.last_name = profile_update_form.cleaned_data['last_name']
                 updateUser.save(update_fields=['last_name'])
             updateUser = updateUser.refresh_from_db()
-            if profile_update_form.cleaned_data['profile_image']:
-                updateProfile.profile_image = profile_update_form.cleaned_data['profile_image']
-                updateProfile.save(update_fields=['profile_image'])
             if  profile_update_form.cleaned_data['description']:
                 updateProfile.description = profile_update_form.cleaned_data['description']
                 updateProfile.save(update_fields=['description'])
-            if request.FILES['profile_image'] is not None:
+            if request.FILES.get('profile_image', False):
                 updateProfile.profile_image = request.FILES['profile_image']
                 updateProfile.save()
             updateProfile.refresh_from_db()
