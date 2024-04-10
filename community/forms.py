@@ -35,11 +35,10 @@ class PostForm(forms.ModelForm):
     title = forms.CharField(required=True)
     description = forms.CharField(required=True)
     category = forms.ChoiceField(choices=Post.categories, required=True)
-    image = forms.FileField(required=False)
 
     class Meta:
         model = Post
-        fields = ['title', 'description', 'category', 'image']
+        fields = ['title', 'description', 'category']
 
 class CommentForm(forms.ModelForm):
     class Meta:

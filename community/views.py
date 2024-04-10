@@ -113,10 +113,12 @@ def newpost(request):
     if request.method == 'GET':
         return render(request, 'new_post.html')
     elif request.method == 'POST':
-        postform = PostForm(request.POST, request.FILES)
+        postform = PostForm(request.POST)
         if postform.is_valid():
             post = postform.save(commit=False)
             post.author = Profile.objects.get(user=request.user)
+            if request.FILES.get('image', False):
+                post.image = request.FILES['image']
             post.save()
             tagCategory = request.POST['tag-category']
             tagList = request.POST['tags'].split(' ')
