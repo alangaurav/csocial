@@ -8,9 +8,6 @@ def user_directory_path(instance, filename):
 
 def post_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/post/<filename>
-    print(instance.author.user.id)
-    print(instance.id)
-    print(filename)
     return 'user_{0}/posts/{1}'.format(instance.author.user.id, filename)
 
 class Company(models.Model):
