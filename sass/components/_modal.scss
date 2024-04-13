@@ -18,6 +18,10 @@
 
         & .post-container {
             max-height: 90vh;
+
+            & .post-container-image {
+                max-height: 60rem;
+            }
         }
     }
 
