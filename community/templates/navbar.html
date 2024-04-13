@@ -9,9 +9,13 @@
             <input type="search" name="search" id="search" placeholder="Search" required>
         </form>
     </div>
-    <div class="navbar-profile dropdown-container">
-        <input type="checkbox" name="profile" id="profile" class="dropdown" placeholder="profile">
-        <ul class="dropdown-list">
+    <div class="navbar-profile">
+        {% if user_profile.profile_image %}
+        <input type="checkbox" name="profile" id="profile" class="navbar-profile-image" placeholder="profile" style="content: url({{user_profile.profile_image.url}});">
+        {% else %}
+        <input type="checkbox" name="profile" id="profile" class="navbar-profile-image" placeholder="profile" style="content: url({% static 'assets/defaultuserimage.png' %});">
+        {% endif %}
+        <ul class="navbar-profile-list">
             <li>
                 <a href="/posts">Home</a>
             </li>
