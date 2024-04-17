@@ -31,15 +31,18 @@ def signup_view(request):
             except:
                 user = user_profile_form.save()  # Save User object
                 company = Company.objects.get(domain=user_profile_form.cleaned_data['email'].split('@')[-1])
-                profile = Profile(
-                    user=user,
-                    #date_of_birth=user_profile_form.cleaned_data['date_of_birth'],
-                    #profile_image=user_profile_form.cleaned_data['profile_image'],
-                    description='About Me',
-                    company = company
-                )
-                profile.save()
-                return JsonResponse({'message': 'Valid Credentials', 'invalid': 'False'})
+                if company is None:
+                    return JsonResponse({'message': 'Your company is not registered with us!', 'invalid': 'True'})
+                else:
+                    profile = Profile(
+                        user=user,
+                        #date_of_birth=user_profile_form.cleaned_data['date_of_birth'],
+                        #profile_image=user_profile_form.cleaned_data['profile_image'],
+                        description='About Me',
+                        company = company
+                    )
+                    profile.save()
+                    return JsonResponse({'message': 'Valid Credentials', 'invalid': 'False'})
         else:
             return JsonResponse({'message': user_profile_form.errors.as_text(), 'invalid': 'True'})
     else:
@@ -171,3 +174,5 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+def handler500(request):
+    return JsonResponse({'message': 'There was an error with your request!', 'invalid': 'True'})
