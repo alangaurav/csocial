@@ -63,15 +63,21 @@
         &-content {
             font-size: 2.2rem;
             font-weight: 300;
-            padding-bottom: 1.2rem;
+            margin-bottom: 1.2rem;
             padding-top: .5rem;
-            overflow-wrap: break-word;
+            max-height: 20rem;
+            overflow-y: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4; 
+            white-space: normal;
         }
 
         &-image{
             max-width: 100%;
-            height: auto;
+            max-height: 20rem;
             object-fit: contain;
+            margin: 2rem 1rem;
         }
 
         &-tags {

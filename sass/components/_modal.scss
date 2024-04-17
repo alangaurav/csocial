@@ -19,6 +19,12 @@
         & .post-container {
             max-height: 90vh;
 
+            & .post-container-content {
+                max-height: 40rem;
+                overflow-y: scroll;
+                -webkit-line-clamp: unset; 
+            }
+
             & .post-container-image {
                 max-height: 60rem;
             }
