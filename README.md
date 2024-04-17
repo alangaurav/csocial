@@ -169,6 +169,7 @@ server {
     proxy_set_header      X-Forwarded-Proto $scheme;
     proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_redirect        off;
+    client_max_body_size 20M; # The default limit is 1MB increase this for file uploads
   }
 
   # Serve static files directly
