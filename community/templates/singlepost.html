@@ -30,10 +30,11 @@
             </li>
             {% endfor %}
         </ul>
-        <form action="POST" class="post-comment-form" id="comment-form">
+        <form action="POST" class="post-comment-form" id="comment-form" action="{% url 'newcomment' %}">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="form-group form-group--comment">
                 <input type="text" placeholder="Add comment" name="newcomment" id="newcomment" required>
+                <button type="submit" class="btn btn-comment" id="addcomment">&#43;</button>
             </div>
         </form>
     </div>
