@@ -3,8 +3,8 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Post, Profile, Tag, Comment, Company
 from .forms import *
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 from django.http import JsonResponse
+import re
 
 
 def my_login_view(request):
@@ -124,8 +124,10 @@ def newpost(request):
                 post.image = request.FILES['image']
             post.save()
             tagCategory = request.POST['tag-category']
-            tagList = request.POST['tags'].split(' ')
+            tagList = re.split(' | , | #', request.POST['tags'])
             for tag in tagList:
+                 if (tag.isspace()) or (not tag):
+                     continue
                  try:
                      newtag = Tag.objects.create(name=tag, category=tagCategory)
                      newtag.save()
@@ -151,7 +153,6 @@ def delete_post(request):
         try:
             post = Post.objects.get(id=post_id, author__user=request.user)
             post.delete()
-            print("Post deleted successfully")
             return JsonResponse({'message': 'Post deleted successfully!', 'invalid': 'False'}) 
         except Post.DoesNotExist:
             return JsonResponse({'message': "Post not found or you're not authorized to delete it.", 'invalid': 'True'})
