@@ -25,7 +25,7 @@ $(document).ready(function () {
                             if (response.invalid == 'False') {
                                 setTimeout(function () {
                                     window.location.replace('/posts/');
-                                }, 3000);
+                                }, 2000);
                             }
                         },
                         error: function (xhr, status, error) {
@@ -72,7 +72,7 @@ $(document).ready(function () {
                         showpopup(response);
                         setTimeout(function () {
                             window.location.reload();
-                        }, 3000);
+                        }, 2000);
                     },
                     error: function (xhr, status, error) {
                     }
@@ -156,7 +156,7 @@ $(document).ready(function () {
                 showpopup(response);
                 setTimeout(function () {
                     window.location.reload();
-                }, 3000);
+                }, 2000);
             },
             error: function (xhr, status, error) {
 
