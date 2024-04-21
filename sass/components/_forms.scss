@@ -134,6 +134,12 @@
       padding: 1rem;
       outline: none;
       scroll-behavior: smooth;
+      background: transparent;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+      background-repeat: no-repeat;
+      background-position-x: 100%;
+      background-position-y: 50%;
+      padding-right: 2rem;
 
       &::after {
         content: "";
@@ -193,7 +199,7 @@
         top: 16px;
         left: 40px;
         color: var(--primary-color);
-        content: "Upload File";
+        content: "Upload Image";
       }*/
 
       /* Handle Component Focus */
@@ -201,6 +207,31 @@
       &:focus::file-selector-button {
         outline: 2px solid var(--primary-color);
         outline-offset: 2px;
+      }
+    }
+  }
+}
+
+.post-comment-form {
+  & div.form-group--comment {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    & input[type="text"]#newcomment {
+      font-size: 1.4rem;
+      flex: 1;
+      padding: .5rem;
+
+      &::placeholder {
+        font-size: 1.4rem;
+      }
+
+      &:active,
+      &:focus {
+        &+button.btn-comment {
+          border-bottom: solid 2px $color-primary;
+        }
       }
     }
   }

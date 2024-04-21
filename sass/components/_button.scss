@@ -9,14 +9,31 @@ button {
     padding: 1.5rem 2.5rem;
     border-radius: 4rem;
     text-align: center;
-    transition: all .4s ease;
+    transition: all .2s ease;
     position: relative;
     cursor: pointer;
     &::after {
-        transition: all .4s ease;
+        transition: all .2s ease;
     }
     
     &--login {
+        &:hover {
+            &::after {
+                display: none;
+            }
+        }
+        &:active {
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    &-comment {
+        padding: 0 1rem 1.5rem 0;
+        border-radius: 0;
+        border-bottom: solid 2px $color-gray-dark;
+        transition: border-color 0s;
         &:hover {
             &::after {
                 display: none;
